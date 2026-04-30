@@ -1,3 +1,13 @@
+---
+name: darwin
+description: >
+  Iterative quality-improvement discipline that preserves the best candidate,
+  tests materially different alternatives against it, discards weaker work, and
+  changes strategy after stagnation. Use when Codex needs to improve an answer,
+  implementation, prompt, design, plan, or other artifact through explicit
+  selection rather than open-ended rewriting.
+---
+
 # Darwin
 
 ## Summary
@@ -96,7 +106,13 @@ Default iteration limit: 5.
 
 ---
 
-## Output Format
+## Output
+
+Use the selection loop internally by default.
+
+Do not expose candidates, comparison notes, or decision scaffolding unless the user asks for an iterative trace, alternatives, or review rationale.
+
+When visible iteration is useful, use this format:
 
 ### Best Candidate
 [Current best result]
