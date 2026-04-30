@@ -1,28 +1,30 @@
 ---
 name: darwin
 description: >
-  Iterative quality-improvement discipline that preserves the best candidate,
-  tests materially different alternatives against it, discards weaker work, and
-  changes strategy after stagnation. Use when Codex needs to improve an answer,
-  implementation, prompt, design, plan, or other artifact through explicit
-  selection rather than open-ended rewriting.
+  Pragmatic iterative improvement discipline that preserves what works,
+  varies what does not, tests changes against the current best result, and
+  escalates strategy only when progress stalls. Use when Codex is asked to
+  refine, improve, iterate on, compare attempts for, or recover weak output in
+  an answer, plan, implementation, design, prompt, or other artifact without
+  open-ended rewriting.
 ---
 
 # Darwin
 
 ## Summary
 
-Darwin forces an agent to improve through selection.
+Darwin improves work through controlled variation and selection.
 
-The agent must maintain the best result so far, test new candidates against it, and discard anything that does not improve the outcome.
+The agent must preserve the strongest result so far, introduce meaningful
+changes, keep only proven improvements, and change strategy when progress stalls.
 
 ---
 
 ## Core Rule
 
-Keep the best.  
-Discard worse.  
-Change strategy when stuck.
+Preserve what works.<br>
+Vary what does not.<br>
+Keep only what improves.
 
 ---
 
@@ -30,99 +32,112 @@ Change strategy when stuck.
 
 For non-trivial tasks:
 
-1. Create a candidate
-2. Compare it to the current best
-3. Keep it only if it is clearly better
-4. Discard it if it is worse or merely different
-5. Change strategy after repeated failure
+1. Produce a usable result
+2. Identify what is working and what is weak
+3. Create a materially different improvement attempt
+4. Compare it against the current best
+5. Keep the attempt only if it improves the result
+6. Reuse any clearly valuable parts
+7. Change strategy if improvement stalls
 
 ---
 
 ## Rules
 
-### 1. Best Candidate
+### 1. Best Result
 
-The first usable result becomes the Best Candidate.
+The first usable result becomes the Best Result.
 
-The Best Candidate must always be preserved.
+The Best Result must be preserved until a clearly better result replaces it.
+
+Never overwrite the Best Result with an unproven attempt.
 
 ---
 
-### 2. Candidate Generation
+### 2. Controlled Variation
 
-Each new candidate must make a material change.
+Each attempt must make a meaningful change.
 
 Valid changes:
-- Better structure
-- Better reasoning
 - Better accuracy
+- Better reasoning
+- Better structure
 - Better simplicity
-- Better fit to the user’s goal
+- Better completeness
+- Better fit to the user's goal
+- Better implementation quality
 
 Invalid changes:
-- Rewording
-- Added length without added value
+- Rewording without improvement
+- Added length without value
 - Cosmetic formatting
 - Repeating the same approach
+- Novelty for its own sake
 
 ---
 
 ### 3. Selection
 
-After each candidate, decide:
+After each attempt, compare it to the Best Result.
 
-- Is it clearly better than the Best Candidate?
+Keep the attempt only if it is clearly better.
 
-If yes:
-- Replace the Best Candidate
+Discard it if it is worse, unclear, or merely different.
 
-If no:
-- Discard it
-
-Never continue from a weaker candidate.
+If an attempt has one useful part, preserve that part without adopting the whole attempt.
 
 ---
 
-### 4. Stagnation
+### 4. Escalation
 
-If two candidates fail to improve the Best Candidate:
-
-- Stop using the current approach
-- Change strategy
+If two attempts fail to improve the Best Result, change strategy.
 
 A strategy change must alter the method, not just the wording.
 
+Valid strategy changes:
+- Simplify the solution
+- Reframe the problem
+- Use a different structure
+- Check assumptions
+- Decompose the task
+- Generate a small set of alternative approaches
+- Verify against examples, tests, or constraints
+
 ---
 
-### 5. Stop
+### 5. Convergence
 
 Stop when:
 
-- The Best Candidate satisfies the task, or
-- Further changes are unlikely to improve it, or
+- The Best Result satisfies the task
+- Further changes are likely to be marginal
 - The iteration limit is reached
 
 Default iteration limit: 5.
+
+Use fewer iterations for simple tasks. Prefer one pass for small tasks. Stop early when added work would not change the user-visible result.
 
 ---
 
 ## Output
 
-Use the selection loop internally by default.
+Use the improvement loop internally by default.
 
-Do not expose candidates, comparison notes, or decision scaffolding unless the user asks for an iterative trace, alternatives, or review rationale.
+Do not expose attempts, comparisons, or decision notes unless the user asks for
+an iterative trace, alternatives, or review rationale.
 
-When visible iteration is useful, use this format:
+Only use this format when the user asks for visible iteration or when review/debug rationale is needed:
 
-### Best Candidate
+### Best Result
 [Current best result]
 
-### Candidate
-[New attempt]
+### Attempt
+[New improvement attempt]
 
 ### Decision
-Keep or discard:  
-Reason:  
+Keep or discard:<br>
+Reason:<br>
+Preserved parts:<br>
 Next change:
 
 ---
@@ -131,11 +146,13 @@ Next change:
 
 - Do not reward novelty alone
 - Do not mistake verbosity for improvement
-- Do not overwrite the best result with a weaker one
-- Do not keep iterating without material change
+- Do not abandon working parts unnecessarily
+- Do not keep iterating without meaningful change
+- Do not continue from a weaker result
+- Do not over-explore simple tasks
 
 ---
 
 ## Tagline
 
-Keep the best. Discard the rest.
+Preserve. Vary. Select.
