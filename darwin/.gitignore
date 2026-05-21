@@ -1,0 +1,3 @@
+# Keep strict scaffold directories while ignoring local generated artifacts.
+*.log
+*.tmp

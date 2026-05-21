@@ -11,148 +11,87 @@ description: >
 
 # Darwin
 
-## Summary
-
 Darwin improves work through controlled variation and selection.
 
-The agent must preserve the strongest result so far, introduce meaningful
-changes, keep only proven improvements, and change strategy when progress stalls.
+## Scope
 
----
+Use this skill to improve an existing or first-pass artifact by preserving the
+strongest result, trying materially different changes, and keeping only proven
+improvements.
 
-## Core Rule
+This skill covers answers, plans, prompts, implementation approaches, designs,
+documentation, and other reviewable work products. It does not replace domain
+tests, source review, or user requirements.
 
-Preserve what works.<br>
-Vary what does not.<br>
-Keep only what improves.
+## When to use
 
----
+Use Darwin when the user asks to refine, improve, iterate, compare attempts, or
+recover weak output.
 
-## Process
+Prefer a single improvement pass for small tasks. Use multiple attempts only
+when the artifact is important, ambiguous, or visibly below the target quality.
 
-For non-trivial tasks:
+## Inputs
 
-1. Produce a usable result
-2. Identify what is working and what is weak
-3. Create a materially different improvement attempt
-4. Compare it against the current best
-5. Keep the attempt only if it improves the result
-6. Reuse any clearly valuable parts
-7. Change strategy if improvement stalls
+- Current task or artifact to improve.
+- User constraints, acceptance criteria, or known failure modes.
+- Optional examples, tests, rubric, or prior attempts.
 
----
+If no artifact exists yet, produce the first usable result and treat it as the
+initial best result.
 
-## Rules
+## Outputs
 
-### 1. Best Result
+By default, output only the final improved result.
 
-The first usable result becomes the Best Result.
+Expose attempts, comparisons, or decision notes only when the user asks for an
+iteration trace, alternatives, or review rationale.
 
-The Best Result must be preserved until a clearly better result replaces it.
+## Steps / Procedure
 
-Never overwrite the Best Result with an unproven attempt.
-
----
-
-### 2. Controlled Variation
-
-Each attempt must make a meaningful change.
-
-Valid changes:
-- Better accuracy
-- Better reasoning
-- Better structure
-- Better simplicity
-- Better completeness
-- Better fit to the user's goal
-- Better implementation quality
-
-Invalid changes:
-- Rewording without improvement
-- Added length without value
-- Cosmetic formatting
-- Repeating the same approach
-- Novelty for its own sake
-
----
-
-### 3. Selection
-
-After each attempt, compare it to the Best Result.
-
-Keep the attempt only if it is clearly better.
-
-Discard it if it is worse, unclear, or merely different.
-
-If an attempt has one useful part, preserve that part without adopting the whole attempt.
-
----
-
-### 4. Escalation
-
-If two attempts fail to improve the Best Result, change strategy.
-
-A strategy change must alter the method, not just the wording.
-
-Valid strategy changes:
-- Simplify the solution
-- Reframe the problem
-- Use a different structure
-- Check assumptions
-- Decompose the task
-- Generate a small set of alternative approaches
-- Verify against examples, tests, or constraints
-
----
-
-### 5. Convergence
-
-Stop when:
-
-- The Best Result satisfies the task
-- Further changes are likely to be marginal
-- The iteration limit is reached
+1. Produce or identify the first usable result.
+2. Treat that result as the current best.
+3. Identify what works and what is weak.
+4. Create a materially different attempt that targets a real weakness.
+5. Compare the attempt against the current best.
+6. Keep the attempt only when it is clearly better.
+7. Preserve any useful part of a rejected attempt without adopting the whole.
+8. Change strategy after two failed improvement attempts.
+9. Stop when the result satisfies the task or further gains look marginal.
 
 Default iteration limit: 5.
 
-Use fewer iterations for simple tasks. Prefer one pass for small tasks. Stop early when added work would not change the user-visible result.
+Valid changes include better accuracy, reasoning, structure, simplicity,
+completeness, user fit, and implementation quality. Invalid changes include
+cosmetic rewording, extra length without value, repeated approaches, and novelty
+for its own sake.
 
----
+## Examples
 
-## Output
+User: "Use Darwin to improve this prompt."
 
-Use the improvement loop internally by default.
+Response behavior: create a best prompt, test one or more targeted variations
+against the user's goal, keep only the stronger version, and return the final
+prompt unless the user asks for the comparison trail.
 
-Do not expose attempts, comparisons, or decision notes unless the user asks for
-an iterative trace, alternatives, or review rationale.
+User: "Improve this plan and implement it."
 
-Only use this format when the user asks for visible iteration or when review/debug rationale is needed:
+Response behavior: preserve the working parts of the plan, replace weak or
+missing steps, validate the improved plan against the repo, then execute it.
 
-### Best Result
-[Current best result]
+## Limitations / Failure modes
 
-### Attempt
-[New improvement attempt]
+- Do not reward novelty alone.
+- Do not mistake verbosity for improvement.
+- Do not abandon working parts unnecessarily.
+- Do not iterate without a meaningful change.
+- Do not continue from a weaker result.
+- Do not over-explore simple tasks.
 
-### Decision
-Keep or discard:<br>
-Reason:<br>
-Preserved parts:<br>
-Next change:
+## Security / Tool access
 
----
+Darwin requires no special tools. Use normal task-appropriate tools only when
+they are needed to verify, compare, or implement an improvement.
 
-## Constraints
-
-- Do not reward novelty alone
-- Do not mistake verbosity for improvement
-- Do not abandon working parts unnecessarily
-- Do not keep iterating without meaningful change
-- Do not continue from a weaker result
-- Do not over-explore simple tasks
-
----
-
-## Tagline
-
-Preserve. Vary. Select.
+Never invent evidence. If a comparison depends on tests, source files, or live
+state, verify those inputs before treating an attempt as better.
